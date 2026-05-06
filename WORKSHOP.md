@@ -16,7 +16,7 @@ By the end, every student will have:
 
 - [ ] Install GitHub CLI: `brew install gh && gh auth login`
 - [ ] Have Claude Cowork (or Claude Code) ready
-- [ ] Have at least one rough idea for an agent or skill they want to build (e.g., a meeting-notes summarizer, a brand-voice checker, a code-review helper)
+- [ ] **Bring at least one agent and one skill they've already written** (from `~/.claude/` or anywhere else). If they don't have any yet, they should write a small one before the workshop — a 15-line skill is fine.
 
 ## Lesson script
 
@@ -38,25 +38,37 @@ Run the install command live in Cowork:
 
 Say: *"By the end of today, you'll build something that looks like this. Your name on the repo, your skills and agents inside."*
 
-### 1. Build locally in `.claude/` (10 min)
+### 1. Set up the folder and move skills/agents in (10 min)
 
 Each student:
 
+**a. Create the project folder**
 ```bash
-mkdir -p ~/Code/<my-name>-tools/.claude/agents
-mkdir -p ~/Code/<my-name>-tools/.claude/skills
+mkdir ~/Code/<my-name>-tools
 cd ~/Code/<my-name>-tools
 ```
 
-They create:
-- One simple agent: `.claude/agents/<name>.md`
-- One simple skill: `.claude/skills/<name>/SKILL.md`
+**b. Create the `.claude/` folder with `agents/` and `skills/` inside**
+```bash
+mkdir -p .claude/agents
+mkdir -p .claude/skills
+```
 
-**Keep them small.** A 15-line skill is better than a perfect one. Examples:
-- `meeting-summarizer` skill — turns notes into action items
-- `brand-checker` agent — reviews writing against a voice guideline
+**c. Move (or copy) their existing skills and agents into it**
 
-They test it in Cowork/Claude Code by triggering the agent or invoking the skill from inside that folder.
+If their files are in `~/.claude/`:
+```bash
+cp ~/.claude/agents/<their-agent>.md .claude/agents/
+cp -r ~/.claude/skills/<their-skill> .claude/skills/
+```
+
+Or they can drag-and-drop in Finder/VS Code.
+
+**d. Test that Claude picks them up**
+
+Open Claude Cowork or Claude Code in the project folder. Trigger the agent or invoke the skill — it should activate just like it did in their personal `~/.claude/`. This proves the project-scoped `.claude/` works.
+
+> **Teaching beat:** Pause here and point out that Claude found the agent/skill *only because of the folder structure*. The markdown content is identical to what they had before — naming and location is what made it discoverable.
 
 ### 2. Pose the sharing problem (2 min)
 
@@ -64,22 +76,33 @@ Stop the room and ask: *"Your teammate Sarah loves this. How do you give it to h
 
 Let them suggest copy-paste, Slack, Drive. Then ask: *"What if you change it next week?"* This is where they feel the pain plugins solve.
 
-### 3. Convert to a plugin — conversationally (10 min)
+### 3. Ask Claude to package it as a plugin (10 min)
 
-Have them open Claude Code/Cowork in their project folder and say:
+Students open Claude Code/Cowork in their project folder and ask in plain English. Two prompts that work — pick one:
 
-> "I have skills and agents in `.claude/`. Convert this folder into a Claude Code plugin called `<my-name>-tools`, set up a marketplace.json, and validate the result."
+**Option A — single plugin, all components:**
+
+> "Create a plugin called `<my-name>-tools` from my `.claude/` folder. Include the `<agent-name>` agent and the `<skill-name>` skill. Set up a marketplace.json too, and validate the result."
+
+**Option B — multiple plugins, students specify the split:**
+
+> "Create two plugins from my `.claude/` folder under one marketplace.
+> - `<plugin-1>` — should include the `<agent>` agent and the `<skill-1>` skill
+> - `<plugin-2>` — should include the `<skill-2>` skill
+>
+> Set up the marketplace.json and validate."
 
 Claude will:
-- Move `.claude/agents/*` and `.claude/skills/*` into a plugin layout
-- Create `.claude-plugin/plugin.json`
-- Create `.claude-plugin/marketplace.json`
+- Create `plugins/<name>/` folder(s) with the correct structure
+- Move/copy `.claude/agents/*` and `.claude/skills/*` into the right plugin
+- Write `.claude-plugin/plugin.json` for each plugin
+- Write `.claude-plugin/marketplace.json` at the repo root
 - Run `plugin-validator` to check everything
 
-**Teaching moment:** open the agent/skill markdown before and after. Point out the file content is identical — only the folder structure changed.
+**Teaching moment:** open one of their agent or skill markdown files before and after. Point out the file *content* is byte-for-byte identical — only the folder location changed. The plugin is just a packaging convention.
 
-> Why conversational instead of `/plugin-dev:create-plugin`?
-> The wizard is built for greenfield plugins. Students already have working components — a one-line conversational request is faster and more realistic of how they'll actually work day-to-day. Save the wizard for "next time you start from scratch."
+> Why this conversational approach instead of `/plugin-dev:create-plugin`?
+> The `/plugin-dev:create-plugin` skill is an 8-phase wizard built for *greenfield* plugins ("describe what you want to build"). Your students already have working components — a one-line conversational request is faster, doesn't ask them to re-describe what they already wrote, and is more realistic of how they'll actually use Claude day-to-day. Save the wizard for "next time you start from scratch."
 
 ### 4. Push to GitHub (5 min)
 
