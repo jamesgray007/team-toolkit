@@ -1,0 +1,11 @@
+{
+  "name": "operations",
+  "version": "0.1.0",
+  "description": "Daily operations agents and skills — Moneypenny, the always-on executive assistant for morning briefings, email triage, schedule prioritization, and end-of-day reviews.",
+  "author": {
+    "name": "James Gray",
+    "email": "james@jamesgray.ai"
+  },
+  "homepage": "https://github.com/jamesgray007/team-toolkit",
+  "keywords": ["operations", "executive-assistant", "agents", "moneypenny"]
+}
