@@ -91,6 +91,60 @@ team-toolkit/
 
 The repo and marketplace happen to share a name, but the plugins are distinct.
 
+## For students: from idea to plugin in 3 stages
+
+You don't write a plugin from scratch. You start small in a `.claude/` folder, prove the idea works, *then* promote it to a plugin when it's worth sharing.
+
+### Stage 1 — Personal scratchpad: `~/.claude/`
+
+The fastest way to try a skill or agent. Files in your home directory are loaded by Claude Code in **every** project on your machine — no setup, no config.
+
+```
+~/.claude/
+├── agents/
+│   └── my-helper.md
+└── skills/
+    └── my-skill/
+        └── SKILL.md
+```
+
+Use this when: you're experimenting and don't yet know if the agent/skill is even useful.
+
+### Stage 2 — Project-scoped: `.claude/` in a repo
+
+When the skill/agent is tied to a specific project (e.g., a codebase or workflow), put it in that project's `.claude/` folder and commit it. Teammates who clone the repo get it automatically when they work in that directory.
+
+```
+my-project/
+├── .claude/
+│   ├── agents/
+│   └── skills/
+└── (rest of the project)
+```
+
+Use this when: the skill only makes sense in the context of one project, and you want it version-controlled with that project.
+
+### Stage 3 — Plugin: shareable, installable, versioned
+
+When the skill/agent is mature and other people should have it regardless of which project they're in, promote it to a plugin in this marketplace.
+
+**The migration is just moving files** — the agent/skill markdown doesn't change:
+
+```
+# Before (project-scoped)              # After (plugin)
+.claude/agents/my-helper.md       →    plugins/my-plugin/agents/my-helper.md
+.claude/skills/my-skill/          →    plugins/my-plugin/skills/my-skill/
+```
+
+Then add the plugin manifest and register it in the marketplace (see next section).
+
+> **The `.claude/` vs `.claude-plugin/` distinction**
+>
+> - `.claude/` = config for *this* project or user, only loaded in that context.
+> - `.claude-plugin/` = manifest that turns a folder into a *shareable, installable* package.
+>
+> Same idea — Claude config — different scope.
+
 ## Adding a new plugin to this marketplace
 
 1. Create a folder under `plugins/<plugin-name>/`.
