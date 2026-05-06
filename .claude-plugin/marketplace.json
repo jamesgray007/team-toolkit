@@ -1,0 +1,26 @@
+{
+  "name": "team-toolkit",
+  "owner": {
+    "name": "James Gray",
+    "email": "james@jamesgray.ai",
+    "url": "https://jamesgray.ai"
+  },
+  "metadata": {
+    "description": "Team Toolkit marketplace — shared Claude Code plugins for the team.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "team-toolkit",
+      "source": "./",
+      "description": "Shared agents and skills for everyday team work — Moneypenny EA agent, brand guidelines skill, and more.",
+      "version": "0.1.0",
+      "author": {
+        "name": "James Gray",
+        "email": "james@jamesgray.ai"
+      },
+      "category": "productivity",
+      "tags": ["team", "agents", "skills", "executive-assistant", "brand"]
+    }
+  ]
+}

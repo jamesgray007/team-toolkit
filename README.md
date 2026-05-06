@@ -16,14 +16,14 @@ This repo is also a teaching demo for how to package up agents and skills as a C
 
 ## Install
 
-The plugin lives in a private GitHub repo, so install it as a marketplace from the Git URL:
+This repo is also a **plugin marketplace**, so adding it once gives teammates access to every plugin we publish here.
 
 ```
 /plugin marketplace add jamesgray007/team-toolkit
 /plugin install team-toolkit@team-toolkit
 ```
 
-Or, for local development, clone the repo and point Claude Code at the directory:
+For local development, clone the repo and point Claude Code at the directory:
 
 ```bash
 git clone https://github.com/jamesgray007/team-toolkit.git ~/Code/team-toolkit
@@ -33,7 +33,7 @@ Then in Claude Code:
 
 ```
 /plugin marketplace add ~/Code/team-toolkit
-/plugin install team-toolkit
+/plugin install team-toolkit@team-toolkit
 ```
 
 ## Repo layout
@@ -41,7 +41,8 @@ Then in Claude Code:
 ```
 team-toolkit/
 ├── .claude-plugin/
-│   └── plugin.json         # Plugin manifest
+│   ├── plugin.json         # Manifest for the team-toolkit plugin
+│   └── marketplace.json    # Marketplace listing — add more plugins here
 ├── agents/
 │   └── moneypenny.md       # Agent definitions
 ├── skills/
@@ -51,12 +52,56 @@ team-toolkit/
 └── README.md
 ```
 
-## Adding new agents and skills
+## Adding new agents and skills (to this plugin)
 
 1. Drop a new agent markdown file in `agents/`, following the same frontmatter pattern as `moneypenny.md`.
 2. Drop a new skill folder in `skills/<skill-name>/` with a `SKILL.md` file.
-3. Bump `version` in `.claude-plugin/plugin.json`.
+3. Bump `version` in `.claude-plugin/plugin.json` (and the matching entry in `.claude-plugin/marketplace.json`).
 4. Commit and push. Teammates run `/plugin update team-toolkit` to pull the changes.
+
+## Adding more plugins to the marketplace
+
+Two patterns, both supported by `.claude-plugin/marketplace.json`:
+
+**Pattern A — subfolder in this repo** (good for tightly related plugins):
+
+```
+team-toolkit/
+├── .claude-plugin/marketplace.json
+├── plugins/
+│   ├── content-toolkit/
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/
+│   │   └── agents/
+│   └── coaching-toolkit/
+│       └── .claude-plugin/plugin.json
+└── (existing team-toolkit files)
+```
+
+Then add to `marketplace.json`:
+
+```json
+{
+  "name": "content-toolkit",
+  "source": "./plugins/content-toolkit",
+  "description": "..."
+}
+```
+
+**Pattern B — separate GitHub repo** (good for plugins that have their own lifecycle):
+
+```json
+{
+  "name": "content-toolkit",
+  "source": {
+    "source": "github",
+    "repo": "jamesgray007/content-toolkit"
+  },
+  "description": "..."
+}
+```
+
+Either way, teammates run `/plugin install <plugin-name>@team-toolkit` and Claude Code pulls it from the right place.
 
 ## License
 
