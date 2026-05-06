@@ -1,0 +1,11 @@
+{
+  "name": "brand-tools",
+  "version": "0.1.0",
+  "description": "Brand and content skills — apply James Gray / JamesGray.AI brand voice, tone, and messaging guidelines to any content.",
+  "author": {
+    "name": "James Gray",
+    "email": "james@jamesgray.ai"
+  },
+  "homepage": "https://github.com/jamesgray007/team-toolkit",
+  "keywords": ["brand", "content", "skills", "voice", "messaging"]
+}
