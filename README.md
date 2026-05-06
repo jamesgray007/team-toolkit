@@ -1,8 +1,8 @@
 # Team Toolkit
 
-A shared Claude Code plugin of skills and agents for your team. Anyone on the team can install it with one command and instantly have the same agents, skills, and ways of working.
+A shared plugin of skills and agents for your team, designed to run primarily in **Claude Cowork** (and also works in Claude Code). Anyone on the team can install it with one command and instantly have the same agents, skills, and ways of working.
 
-This repo is also a teaching demo for how to package up agents and skills as a Claude Code plugin.
+This repo is also a teaching demo for how to package up agents and skills as a Claude Code / Cowork plugin and distribute it via a marketplace.
 
 ## What's inside
 
@@ -18,18 +18,33 @@ This repo is also a teaching demo for how to package up agents and skills as a C
 
 This repo is also a **plugin marketplace**, so adding it once gives teammates access to every plugin we publish here.
 
+### In Claude Cowork (primary)
+
+This is the path students will use. Inside a Cowork session:
+
 ```
 /plugin marketplace add jamesgray007/team-toolkit
 /plugin install team-toolkit@team-toolkit
 ```
 
-For local development, clone the repo and point Claude Code at the directory:
+Because the repo is private, Cowork will prompt to authenticate with GitHub the first time. After that, every plugin published in this marketplace is one `/plugin install` away.
+
+> **Note for students:** Cowork can install plugins from GitHub but cannot push changes back. To add new agents/skills, edit locally (or via the GitHub web UI) and push from your own machine — then run `/plugin update team-toolkit` in Cowork to pull the new version.
+
+### In Claude Code
+
+Same commands work:
+
+```
+/plugin marketplace add jamesgray007/team-toolkit
+/plugin install team-toolkit@team-toolkit
+```
+
+For local development, clone and add the directory as a marketplace:
 
 ```bash
 git clone https://github.com/jamesgray007/team-toolkit.git ~/Code/team-toolkit
 ```
-
-Then in Claude Code:
 
 ```
 /plugin marketplace add ~/Code/team-toolkit
